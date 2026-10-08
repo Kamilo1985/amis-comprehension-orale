@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Compréhension orale – Parler de ses amis</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px;
+    background: #f6f7f9;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333333;
+    line-height: 1.6;
+}
+
+.app {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.header {
+    padding: 25px 28px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ff5b63 0%, #ff4a55 100%);
+    border-radius: 18px;
+    box-shadow: 0 5px 16px rgba(255, 82, 87, 0.18);
+    color: #ffffff;
+}
+
+.header h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.header p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.card {
+    padding: 24px;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+    margin: 0 0 14px;
+    font-size: 19px;
+    color: #333333;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000000;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.vocabulary {
+    padding: 20px 22px;
+    margin-bottom: 20px;
+    background: #f3f6f8;
+    border-left: 5px solid #ff5257;
+    border-radius: 12px;
+}
+
+.vocabulary h2 {
+    margin: 0 0 6px;
+    font-size: 19px;
+}
+
+.vocabulary p {
+    margin: 0 0 16px;
+}
+
+.vocabulary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    font-size: 15px;
+}
+
+.vocabulary-table th,
+.vocabulary-table td {
+    padding: 11px 14px;
+    border: 1px solid #dddddd;
+    text-align: left;
+    vertical-align: top;
+}
+
+.vocabulary-table th {
+    background: #fff2f3;
+}
+
+.vocabulary-table td:first-child {
+    width: 28%;
+    font-weight: 700;
+}
+
+.vocabulary-table tr:nth-child(even) td {
+    background: #fafafa;
+}
+
+.instructions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.instruction-card {
+    flex: 1 1 380px;
+    min-width: 0;
+    padding: 20px;
+    border-left: 5px solid #ff5257;
+    border-radius: 12px;
+}
+
+.instruction-one {
+    background: #fff5f5;
+}
+
+.instruction-two {
+    background: #f8f9fa;
+}
+
+.instruction-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.instruction-number {
+    min-width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    background: #ff5257;
+    color: #ffffff;
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+.instruction-card h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.instruction-card p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.quiz-card {
+    padding: 28px;
+}
+
+.quiz-title {
+    margin: 0 0 6px;
+    font-size: 21px;
+}
+
+.quiz-intro {
+    margin: 0 0 22px;
+    color: #666666;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #666666;
+}
+
+.progress-track {
+    width: 100%;
+    height: 9px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    background: #eeeeee;
+    border-radius: 999px;
+}
+
+.progress-bar {
+    width: 14.2857%;
+    height: 100%;
+    background: #ff5257;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.question {
+    display: none;
+}
+
+.question.active {
+    display: block;
+}
+
+.question-number {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #ff5257;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.question h3 {
+    margin: 0 0 20px;
+    font-size: 20px;
+    line-height: 1.45;
+}
+
+.options {
+    display: grid;
+    gap: 10px;
+}
+
+.option {
+    position: relative;
+}
+
+.option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.option label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e1e5e8;
+    border-radius: 11px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.option-letter {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eeeeee;
+    border-radius: 50%;
+    font-weight: 700;
+    color: #555555;
+}
+
+.option-text {
+    padding-top: 2px;
+    font-size: 16px;
+}
+
+.option label:hover {
+    border-color: #ff9da1;
+    background: #fff7f7;
+}
+
+.option input:checked + label {
+    border-color: #ff5257;
+    background: #fff2f3;
+}
+
+.option input:checked + label .option-letter {
+    background: #ff5257;
+    color: #ffffff;
+}
+
+.option label.correct {
+    border-color: #28a745;
+    background: #eef8f0;
+}
+
+.option label.correct .option-letter {
+    background: #28a745;
+    color: #ffffff;
+}
+
+.option label.incorrect {
+    border-color: #dc4c55;
+    background: #fff1f2;
+}
+
+.option label.incorrect .option-letter {
+    background: #dc4c55;
+    color: #ffffff;
+}
+
+.feedback {
+    display: none;
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 9px;
+    font-size: 15px;
+}
+
+.feedback.correct-feedback {
+    display: block;
+    background: #eef8f0;
+    border-left: 5px solid #28a745;
+}
+
+.feedback.incorrect-feedback {
+    display: block;
+    background: #fff2f3;
+    border-left: 5px solid #ff5257;
+}
+
+.warning {
+    display: none;
+    margin-top: 15px;
+    padding: 10px 13px;
+    background: #fff2f3;
+    border-left: 4px solid #ff5257;
+    border-radius: 7px;
+    color: #a62c32;
+    font-size: 14px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 9px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #ff5257;
+    color: #ffffff;
+}
+
+.btn-secondary {
+    background: #f0f2f4;
+    color: #444444;
+}
+
+.results {
+    display: none;
+}
+
+.results-header {
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    background: #fff2f3;
+    border-left: 6px solid #ff5257;
+    border-radius: 12px;
+}
+
+.results-header h2 {
+    margin: 0 0 5px;
+    font-size: 23px;
+}
+
+.results-header p {
+    margin: 0;
+}
+
+.score-box {
+    padding: 24px;
+    text-align: center;
+    background: #f3f6f8;
+    border-radius: 12px;
+}
+
+.score-number {
+    margin-bottom: 5px;
+    font-size: 38px;
+    font-weight: 700;
+    color: #ff5257;
+}
+
+.score-message {
+    margin: 0;
+    font-size: 16px;
+}
+
+.restart-wrap {
+    margin-top: 22px;
+    text-align: center;
+}
+
+.reaction {
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+}
+
+.reaction h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.reaction p {
+    margin: 0 0 10px;
+}
+
+.reaction ul {
+    margin: 0;
+    padding-left: 22px;
+}
+
+.reaction li {
+    margin-bottom: 5px;
+}
+
+@media (max-width: 650px) {
+    body {
+        padding: 12px;
+    }
+
+    .header,
+    .card,
+    .quiz-card {
+        padding: 20px;
+    }
+
+    .vocabulary-table {
+        font-size: 14px;
+    }
+
+    .vocabulary-table th,
+    .vocabulary-table td {
+        padding: 9px;
+    }
+
+    .navigation {
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <h1>Compréhension orale – Parler de ses amis</h1>
+        <p>Écoutez le document et réalisez les activités proposées.</p>
+    </div>
+
+    <div class="vocabulary">
+        <h2>Avant la première écoute</h2>
+        <p>Révisez ce vocabulaire :</p>
+
+        <div style="overflow-x:auto;">
+            <table class="vocabulary-table">
+                <thead>
+                    <tr>
+                        <th>Adjectif</th>
+                        <th>Signification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>calme</td>
+                        <td>Une personne tranquille, qui ne s’énerve pas facilement.</td>
+                    </tr>
+                    <tr>
+                        <td>patient / patiente</td>
+                        <td>Une personne qui sait attendre sans s’énerver.</td>
+                    </tr>
+                    <tr>
+                        <td>sociable</td>
+                        <td>Une personne qui aime être avec les autres et communiquer avec eux.</td>
+                    </tr>
+                    <tr>
+                        <td>dynamique</td>
+                        <td>Une personne active, qui a beaucoup d’énergie.</td>
+                    </tr>
+                    <tr>
+                        <td>généreux / généreuse</td>
+                        <td>Une personne qui aime donner, partager ou aider les autres.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 class="section-title">Vidéo : « Parler de ses amis »</h2>
+
+        <div class="video-wrapper">
+            <iframe
+                src="https://www.youtube.com/embed/babtqrhXaYY"
+                title="Parler de ses amis"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <div class="instructions">
+
+        <div class="instruction-card instruction-one">
+            <div class="instruction-heading">
+                <div class="instruction-number">1</div>
+                <h2>Première écoute</h2>
+            </div>
+
+            <p>
+                Écoutez sans lire la transcription. Identifiez le thème général et notez trois adjectifs entendus.
+            </p>
+        </div>
+
+        <div class="instruction-card instruction-two">
+            <div class="instruction-heading">
+                <div class="instruction-number">2</div>
+                <h2>Deuxième écoute</h2>
+            </div>
+
+            <p>
+                Écoutez une deuxième fois et répondez individuellement aux questions du quiz. Participez ensuite à la correction.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="card quiz-card" id="quiz">
+
+        <h2 class="quiz-title">Quiz de compréhension</h2>
+        <p class="quiz-intro">Choisissez la bonne réponse pour chaque question.</p>
+
+        <div class="progress-info">
+            <span>Votre progression</span>
+            <span id="progressText">1 / 7</span>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="question active" data-question="0">
+            <span class="question-number">Question 1</span>
+            <h3>Quel est le sujet principal du document ?</h3>
+
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q1a" name="q1" value="a">
+                    <label for="q1a">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Les règles d’un jeu entre amis</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q1b" name="q1" value="b">
+                    <label for="q1b">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">La présentation de plusieurs amis et de leur personnalité</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q1c" name="q1" value="c">
+                    <label for="q1c">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Le récit détaillé d’un voyage scolaire</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q1d" name="q1" value="d">
+                    <label for="q1d">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Des conseils pour trouver un emploi</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="warning">Choisissez une réponse avant de continuer.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" data-question="1">
+            <span class="question-number">Question 2</span>
+            <h3>Quelles informations sont surtout données sur les personnes présentées ?</h3>
+
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q2a" name="q2" value="a">
+                    <label for="q2a">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Uniquement leur âge et leur profession</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q2b" name="q2" value="b">
+                    <label for="q2b">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Leurs opinions politiques</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q2c" name="q2" value="c">
+                    <label for="q2c">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Leurs résultats scolaires</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q2d" name="q2" value="d">
+                    <label for="q2d">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Leur caractère, leurs activités et leur relation avec la personne qui parle</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="warning">Choisissez une réponse avant de continuer.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" data-question="2">
+            <span class="question-number">Question 3</span>
+            <h3>Que fait généralement la personne qui parle après avoir présenté un ami ?</h3>
+
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q3a" name="q3" value="a">
+                    <label for="q3a">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Elle explique comment elle le connaît ou ce qu’elle apprécie chez lui.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q3b" name="q3" value="b">
+                    <label for="q3b">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Elle critique sa manière de travailler.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q3c" name="q3" value="c">
+                    <label for="q3c">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Elle donne son adresse complète.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q3d" name="q3" value="d">
+                    <label for="q3d">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Elle lui demande de changer de personnalité.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="warning">Choisissez une réponse avant de continuer.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" data-question="3">
+            <span class="question-number">Question 4</span>
+            <h3>Quelle idée importante comprend-on avec Enzo et Mattéo ?</h3>
+
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q4a" name="q4" value="a">
+                    <label for="q4a">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Les jumeaux ont toujours les mêmes goûts.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q4b" name="q4" value="b">
+                    <label for="q4b">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Les personnes calmes n’aiment pas lire.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q4c" name="q4" value="c">
+                    <label for="q4c">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Deux personnes qui se ressemblent physiquement peuvent avoir des personnalités différentes.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q4d" name="q4" value="d">
+                    <label for="q4d">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Les sportifs sont toujours bavards.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="warning">Choisissez une réponse avant de continuer.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" data-question="4">
+            <span class="question-number">Question 5</span>
+            <h3>Que montre l’ensemble des portraits ?</h3>
+
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q5a" name="q5" value="a">
+                    <label for="q5a">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Tous les amis ont exactement le même caractère.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q5b" name="q5" value="b">
+                    <label for="q5b">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Les amis peuvent avoir des qualités, des goûts et des personnalités très variés.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q5c" name="q5" value="c">
+                    <label for="q5c">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Il est difficile d’avoir des amis différents de soi.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q5d" name="q5" value="d">
+                    <label for="q5d">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Les activités sont plus importantes que la personnalité.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="warning">Choisissez une réponse avant de continuer.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" data-question="5">
+            <span class="question-number">Question 6</span>
+            <h3>Comment Flora est-elle présentée ?</h3>
+
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q6a" name="q6" value="a">
+                    <label for="q6a">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Comme une personne timide qui évite les autres</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q6b" name="q6" value="b">
+                    <label for="q6b">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Comme une personne paresseuse et désorganisée</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q6c" name="q6" value="c">
+                    <label for="q6c">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Comme une personne bruyante qui n’aime pas voyager</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q6d" name="q6" value="d">
+                    <label for="q6d">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Comme une personne organisée et sociable qui parle facilement aux gens</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="warning">Choisissez une réponse avant de continuer.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question" data-question="6">
+            <span class="question-number">Question 7</span>
+            <h3>Quel portrait correspond à Antoine ?</h3>
+
+            <div class="options">
+                <div class="option">
+                    <input type="radio" id="q7a" name="q7" value="a">
+                    <label for="q7a">
+                        <span class="option-letter">A</span>
+                        <span class="option-text">Il est créatif, curieux et généreux, mais parfois un peu paresseux.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q7b" name="q7" value="b">
+                    <label for="q7b">
+                        <span class="option-letter">B</span>
+                        <span class="option-text">Il est calme, patient et passionné par la lecture.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q7c" name="q7" value="c">
+                    <label for="q7c">
+                        <span class="option-letter">C</span>
+                        <span class="option-text">Il est sportif, dynamique et préfère les activités de plein air.</span>
+                    </label>
+                </div>
+
+                <div class="option">
+                    <input type="radio" id="q7d" name="q7" value="d">
+                    <label for="q7d">
+                        <span class="option-letter">D</span>
+                        <span class="option-text">Il est très organisé et n’a pas peur de parler aux gens.</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="warning">Choisissez une réponse avant de continuer.</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="navigation">
+            <button class="btn btn-primary" id="actionBtn" type="button">
+                Valider ma réponse
+            </button>
+        </div>
+
+    </div>
+
+    <div class="card results" id="results">
+
+        <div class="results-header">
+            <h2>Votre résultat</h2>
+            <p>Vous avez terminé le quiz de compréhension.</p>
+        </div>
+
+        <div class="score-box">
+            <div class="score-number" id="scoreNumber">0 / 7</div>
+            <p class="score-message" id="scoreMessage"></p>
+        </div>
+
+        <div class="restart-wrap">
+            <button class="btn btn-primary" id="restartBtn" type="button">
+                Recommencer le quiz
+            </button>
+        </div>
+
+    </div>
+
+    <div class="reaction">
+        <h2>Après la correction</h2>
+
+        <p>Échangez avec un camarade à partir d’une ou plusieurs des questions suivantes :</p>
+
+        <ul>
+            <li>À quelle personne ressemblez-vous le plus ?</li>
+            <li>Quelle qualité appréciez-vous chez une des personnes présentées ?</li>
+            <li>Connaissez-vous une personne qui a un caractère similaire ?</li>
+        </ul>
+    </div>
+
+</div>
+
+<script>
+const correctAnswers = ["b", "d", "a", "c", "b", "d", "a"];
+
+const feedbackTexts = [
+    "Le document présente plusieurs amis et décrit notamment leur personnalité.",
+    "Les portraits parlent principalement du caractère, des activités et de la relation avec la personne qui parle.",
+    "La personne qui parle explique notamment comment elle connaît ses amis ou ce qu’elle apprécie chez eux.",
+    "Enzo et Mattéo se ressemblent physiquement, mais leurs personnalités sont différentes.",
+    "Les différents portraits montrent une grande variété de qualités, de goûts et de personnalités.",
+    "Flora est présentée comme une personne organisée et sociable qui parle facilement aux gens.",
+    "Antoine est présenté comme créatif, curieux et généreux, mais parfois un peu paresseux."
+];
+
+const questions = document.querySelectorAll(".question");
+const actionBtn = document.getElementById("actionBtn");
+const progressText = document.getElementById("progressText");
+const progressBar = document.getElementById("progressBar");
+const quiz = document.getElementById("quiz");
+const results = document.getElementById("results");
+const scoreNumber = document.getElementById("scoreNumber");
+const scoreMessage = document.getElementById("scoreMessage");
+const restartBtn = document.getElementById("restartBtn");
+
+let currentQuestion = 0;
+let score = 0;
+let validated = false;
+
+function updateProgress() {
+    progressText.textContent = (currentQuestion + 1) + " / 7";
+    progressBar.style.width = ((currentQuestion + 1) / 7 * 100) + "%";
+}
+
+function showQuestion(index) {
+    questions.forEach((question, i) => {
+        question.classList.toggle("active", i === index);
+    });
+
+    validated = false;
+    actionBtn.textContent = "Valider ma réponse";
+    updateProgress();
+}
+
+function validateAnswer() {
+    const current = questions[currentQuestion];
+    const selected = current.querySelector('input[type="radio"]:checked');
+    const warning = current.querySelector(".warning");
+    const feedback = current.querySelector(".feedback");
+
+    if (!selected) {
+        warning.style.display = "block";
+        return;
+    }
+
+    warning.style.display = "none";
+
+    const answer = selected.value;
+    const correctAnswer = correctAnswers[currentQuestion];
+
+    current.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.disabled = true;
+
+        const label = current.querySelector('label[for="' + input.id + '"]');
+
+        if (input.value === correctAnswer) {
+            label.classList.add("correct");
+        }
+
+        if (input.checked && input.value !== correctAnswer) {
+            label.classList.add("incorrect");
+        }
+    });
+
+    if (answer === correctAnswer) {
+        score++;
+        feedback.className = "feedback correct-feedback";
+        feedback.textContent = "Bonne réponse. " + feedbackTexts[currentQuestion];
+    } else {
+        feedback.className = "feedback incorrect-feedback";
+        feedback.textContent = "La bonne réponse est " +
+            correctAnswer.toUpperCase() +
+            ". " +
+            feedbackTexts[currentQuestion];
+    }
+
+    validated = true;
+
+    if (currentQuestion === questions.length - 1) {
+        actionBtn.textContent = "Voir mon résultat";
+    } else {
+        actionBtn.textContent = "Question suivante";
+    }
+}
+
+function nextQuestion() {
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+    } else {
+        showResults();
+    }
+}
+
+function showResults() {
+    quiz.style.display = "none";
+    results.style.display = "block";
+
+    scoreNumber.textContent = score + " / 7";
+
+    if (score === 7) {
+        scoreMessage.textContent =
+            "Excellent travail ! Vous avez très bien compris le document.";
+    } else if (score >= 5) {
+        scoreMessage.textContent =
+            "Très bon travail ! Vous avez bien compris l’essentiel du document.";
+    } else if (score >= 3) {
+        scoreMessage.textContent =
+            "Vous avez compris plusieurs éléments du document. Une nouvelle écoute peut vous aider à consolider votre compréhension.";
+    } else {
+        scoreMessage.textContent =
+            "Écoutez le document une nouvelle fois et concentrez-vous sur les caractéristiques et les activités des personnes présentées.";
+    }
+
+    results.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+actionBtn.addEventListener("click", function() {
+    if (!validated) {
+        validateAnswer();
+    } else {
+        nextQuestion();
+    }
+});
+
+restartBtn.addEventListener("click", function() {
+    currentQuestion = 0;
+    score = 0;
+    validated = false;
+
+    document.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.checked = false;
+        input.disabled = false;
+    });
+
+    document.querySelectorAll(".option label").forEach(label => {
+        label.classList.remove("correct", "incorrect");
+    });
+
+    document.querySelectorAll(".feedback").forEach(feedback => {
+        feedback.style.display = "";
+        feedback.className = "feedback";
+        feedback.textContent = "";
+    });
+
+    document.querySelectorAll(".warning").forEach(warning => {
+        warning.style.display = "none";
+    });
+
+    results.style.display = "none";
+    quiz.style.display = "block";
+
+    showQuestion(0);
+
+    quiz.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+});
+
+showQuestion(0);
+</script>
+
+</body>
+</html>
